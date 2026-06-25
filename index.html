@@ -196,17 +196,18 @@
     filter: blur(34px);
     pointer-events: none;
   }
-  .hero-headline {
+  .hero .hero-headline {
     position: relative;
     z-index: 1;
-    font-size: clamp(30px, 4.8vw, 52px);
-    line-height: 1.12;
-    letter-spacing: -0.035em;
+    font-size: clamp(22px, 3.2vw, 36px);
+    line-height: 1.2;
+    letter-spacing: -0.03em;
   }
   .hero-headline span { display: block; }
+  .hero-headline span + span { margin-top: 20px; }
   .hero-headline .line-white { color: #FFFFFF; }
   .hero-headline .line-black { color: #C7C2D8; }
-  .hero-headline .line-purple { color: #B388FF; margin-top: 4px; }
+  .hero-headline .line-purple { color: #B388FF; }
   .hero-sub {
     font-size: clamp(17px, 2.2vw, 20px);
     color: var(--text-secondary);
