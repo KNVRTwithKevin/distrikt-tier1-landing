@@ -181,10 +181,22 @@
     font-size: clamp(17px, 2.2vw, 20px);
     color: var(--text-secondary);
     max-width: 620px;
-    margin: 0 auto 36px;
+    margin: 0 auto 20px;
     line-height: 1.6;
   }
   .hero-sub b { color: var(--text-primary); font-weight: 600; }
+  .hero-punch {
+    font-weight: 800;
+    font-size: clamp(28px, 4.2vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    background: linear-gradient(120deg, #6D3BEE, #B06BFF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    max-width: 640px;
+    margin: 0 auto 36px;
+  }
   .hero-actions {
     display: flex;
     gap: 14px;
@@ -677,7 +689,8 @@
 <header class="hero wrap">
   <div class="hero-eyebrow"><span class="eyebrow">AI-Native Revenue Infrastructure</span></div>
   <h1>You bought the platform. <span class="hl">The workflows never changed.</span></h1>
-  <p class="hero-sub">If your team has an enterprise AI license and the way you work hasn't moved, you're paying for a platform you're not using. <b>We fixed that in 30 days or less.</b></p>
+  <p class="hero-sub">If your team has an enterprise AI license and the way you work hasn't moved, you're paying for a platform you're not using.</p>
+  <p class="hero-punch">We fix that in 30 days or less.</p>
   <div class="hero-actions">
     <a href="#start" class="btn-primary">Start the 30-Day Sprint &rarr;</a>
     <a href="#how" class="btn-ghost">See how it works</a>
