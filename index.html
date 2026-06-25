@@ -177,6 +177,36 @@
     margin: 0 auto 24px;
   }
   .hero h1 .hl { color: var(--highlight); }
+  .hero-band {
+    position: relative;
+    overflow: hidden;
+    background: var(--ink);
+    border-radius: 24px;
+    padding: clamp(38px, 5vw, 60px) clamp(24px, 4vw, 52px);
+    margin-bottom: 36px;
+    box-shadow: var(--shadow-lg);
+  }
+  .hero-band::after {
+    content: '';
+    position: absolute;
+    top: -130px; right: -90px;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(123,77,255,0.42), transparent 70%);
+    filter: blur(34px);
+    pointer-events: none;
+  }
+  .hero-headline {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(30px, 4.8vw, 52px);
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+  }
+  .hero-headline span { display: block; }
+  .hero-headline .line-white { color: #FFFFFF; }
+  .hero-headline .line-black { color: #C7C2D8; }
+  .hero-headline .line-purple { color: #B388FF; margin-top: 4px; }
   .hero-sub {
     font-size: clamp(17px, 2.2vw, 20px);
     color: var(--text-secondary);
@@ -688,9 +718,13 @@
 <!-- HERO -->
 <header class="hero wrap">
   <div class="hero-eyebrow"><span class="eyebrow">AI-Native Revenue Infrastructure</span></div>
-  <h1>You bought the platform. <span class="hl">The workflows never changed.</span></h1>
-  <p class="hero-sub">If your team has an enterprise AI license and the way you work hasn't moved, you're paying for a platform you're not using.</p>
-  <p class="hero-punch">We fix that in 30 days or less.</p>
+  <div class="hero-band">
+    <h1 class="hero-headline">
+      <span class="line-white">You invested in the AI platform.</span>
+      <span class="line-black">The workflows stayed exactly the same.</span>
+      <span class="line-purple">We fix your adoption problem in 30 days or less.</span>
+    </h1>
+  </div>
   <div class="hero-actions">
     <a href="#start" class="btn-primary">Start the 30-Day Sprint &rarr;</a>
     <a href="#how" class="btn-ghost">See how it works</a>
