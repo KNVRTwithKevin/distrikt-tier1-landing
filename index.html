@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The AI Utilization Sprint | DISTRIKT Worldwide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --bg-1: #F5F3FC;
+    --bg-2: #ECE9F8;
+    --card: #FFFFFF;
+    --card-soft: #FBFAFE;
+    --border: #EAE6F4;
+    --border-strong: #DCD6EE;
+    --text-primary: #16131F;
+    --text-secondary: #56536B;
+    --text-muted: #948FA8;
+    --accent: #7B4DFF;
+    --accent-deep: #6433DF;
+    --accent-soft: #F1ECFF;
+    --accent-glow: rgba(123, 77, 255, 0.30);
+    --grad: linear-gradient(135deg, #7B4DFF 0%, #B06BFF 100%);
+    --grad-soft: linear-gradient(135deg, rgba(123,77,255,0.10), rgba(176,107,255,0.10));
+    --green: #12B07A; --green-soft: #E4F7EF;
+    --amber: #E08A0B; --amber-soft: #FCF0DC;
+    --red: #EF3F66; --red-soft: #FDE6EC;
+    --highlight: #8A5BF5;
+    --ink: #100D1A;
+    --shadow-sm: 0 1px 2px rgba(23,20,31,0.05);
+    --shadow-md: 0 12px 32px -14px rgba(83,52,168,0.30);
+    --shadow-lg: 0 30px 70px -24px rgba(83,52,168,0.35);
+    --maxw: 1080px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Ambient glow */
+  body::before, body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: -1;
+    pointer-events: none;
+  }
+  body::before {
+    top: -200px; right: -140px;
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(123,77,255,0.20), transparent 70%);
+  }
+  body::after {
+    bottom: -180px; left: -160px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(176,107,255,0.16), transparent 70%);
+  }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(14px);
+    background: rgba(245,243,252,0.78);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+  .brand-mark {
+    width: 22px; height: 22px;
+    border-radius: 7px;
+    background: var(--grad);
+    box-shadow: var(--shadow-md);
+  }
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--grad);
+    color: #fff;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 13.5px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 10px 22px -10px var(--accent-glow);
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -10px var(--accent-glow); }
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section { padding: 84px 0; }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    background: var(--accent-soft);
+    border: 1px solid rgba(123,77,255,0.18);
+    padding: 8px 15px;
+    border-radius: 99px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .section-head { max-width: 680px; margin-bottom: 48px; }
+  .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+  .section-title {
+    font-weight: 800;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin: 18px 0 14px;
+  }
+  .section-title .hl { color: var(--highlight); }
+  .section-sub {
+    font-size: 17px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero { padding: 76px 0 64px; text-align: center; }
+  .hero-eyebrow { margin-bottom: 26px; }
+  .hero h1 {
+    font-weight: 800;
+    font-size: clamp(38px, 6vw, 66px);
+    line-height: 1.04;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    max-width: 880px;
+    margin: 0 auto 24px;
+  }
+  .hero h1 .hl { color: var(--highlight); }
+  .hero-sub {
+    font-size: clamp(17px, 2.2vw, 20px);
+    color: var(--text-secondary);
+    max-width: 620px;
+    margin: 0 auto 36px;
+    line-height: 1.6;
+  }
+  .hero-sub b { color: var(--text-primary); font-weight: 600; }
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    background: var(--grad);
+    color: #fff;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+    border-radius: 13px;
+    padding: 17px 32px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 14px 30px -10px var(--accent-glow);
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 20px 40px -10px var(--accent-glow); }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--card);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 16px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 13px;
+    padding: 17px 30px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+  }
+  .btn-ghost:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: var(--shadow-md); }
+  .hero-note {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.01em;
+  }
+
+  /* ---------- STAT STRIP ---------- */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 56px;
+  }
+  .stat-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 22px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .stat-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+  .stat-number {
+    font-weight: 800;
+    font-size: 38px;
+    letter-spacing: -0.02em;
+    background: linear-gradient(120deg, #6D3BEE, #B06BFF);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    margin-bottom: 9px;
+  }
+  .stat-label { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* ---------- PROBLEM ---------- */
+  .problem-card {
+    background: var(--ink);
+    border-radius: 24px;
+    padding: clamp(36px, 5vw, 64px);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .problem-card::after {
+    content: '';
+    position: absolute;
+    top: -120px; right: -80px;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(123,77,255,0.45), transparent 70%);
+    filter: blur(30px);
+  }
+  .problem-card .eyebrow {
+    color: #D7C7FF;
+    background: rgba(123,77,255,0.20);
+    border-color: rgba(123,77,255,0.35);
+    position: relative; z-index: 1;
+  }
+  .problem-card h2 {
+    position: relative; z-index: 1;
+    font-weight: 800;
+    font-size: clamp(26px, 3.6vw, 40px);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin: 20px 0 18px;
+    max-width: 760px;
+  }
+  .problem-card h2 .hl { color: #C8A8FF; }
+  .problem-card p {
+    position: relative; z-index: 1;
+    font-size: 17.5px;
+    color: rgba(255,255,255,0.80);
+    line-height: 1.65;
+    max-width: 680px;
+  }
+
+  /* ---------- WHO WE SERVE ---------- */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .persona {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 34px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .persona:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+  .persona-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    background: var(--accent-soft);
+    padding: 6px 13px;
+    border-radius: 99px;
+    margin-bottom: 18px;
+  }
+  .persona h3 {
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .persona p { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px; }
+  .entry-move {
+    background: var(--card-soft);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .entry-move .label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .entry-move .move { font-size: 14.5px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+  .entry-move .desc { font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* ---------- SPECTRUM ---------- */
+  .spectrum {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    position: relative;
+  }
+  .stage {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 26px 22px;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .stage:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+  .stage.start {
+    border-color: var(--accent);
+    background: linear-gradient(180deg, var(--accent-soft), var(--card));
+  }
+  .stage-num {
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--accent-deep);
+    margin-bottom: 14px;
+  }
+  .stage.start .stage-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--grad);
+    padding: 3px 9px;
+    border-radius: 99px;
+    margin-left: 8px;
+  }
+  .stage h4 { font-weight: 800; font-size: 16.5px; letter-spacing: -0.01em; margin-bottom: 9px; color: var(--ink); }
+  .stage p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.55; }
+
+  /* ---------- PRODUCT (SPRINT) ---------- */
+  .product {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: clamp(34px, 4vw, 56px);
+    box-shadow: var(--shadow-lg);
+  }
+  .product-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 40px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .product-top h2 {
+    font-weight: 800;
+    font-size: clamp(28px, 3.6vw, 38px);
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin: 14px 0 12px;
+  }
+  .product-top p { font-size: 16px; color: var(--text-secondary); max-width: 520px; }
+  .product-pills { display: flex; flex-direction: column; gap: 10px; min-width: 220px; }
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--card-soft);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+  .weeks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .week { position: relative; }
+  .week-num {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 14px;
+  }
+  .week-num .n {
+    width: 26px; height: 26px;
+    border-radius: 8px;
+    background: var(--grad);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+  }
+  .week h4 { font-weight: 800; font-size: 17px; letter-spacing: -0.01em; margin-bottom: 9px; color: var(--ink); }
+  .week p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* ---------- MOTION ---------- */
+  .motion-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .motion-step {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 20px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .motion-step:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+  .motion-step .idx {
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .motion-step h4 { font-weight: 800; font-size: 16px; letter-spacing: -0.01em; margin-bottom: 8px; color: var(--ink); }
+  .motion-step p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.55; }
+
+  /* ---------- QUOTE / DISCOVERY ---------- */
+  .quote-card {
+    background: var(--grad);
+    border-radius: 24px;
+    padding: clamp(40px, 5vw, 72px);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    color: #fff;
+  }
+  .quote-card .mark { font-size: 48px; line-height: 1; opacity: 0.4; margin-bottom: 8px; }
+  .quote-card blockquote {
+    font-weight: 800;
+    font-size: clamp(24px, 3.4vw, 38px);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    max-width: 820px;
+    margin: 0 auto 22px;
+  }
+  .quote-card cite {
+    font-style: normal;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* ---------- CTA / LEAD ---------- */
+  .cta-section { padding-bottom: 96px; }
+  .cta-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: clamp(34px, 4vw, 56px);
+    box-shadow: var(--shadow-lg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .cta-left h2 {
+    font-weight: 800;
+    font-size: clamp(26px, 3.4vw, 36px);
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin: 16px 0 14px;
+    line-height: 1.12;
+  }
+  .cta-left p { font-size: 16px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 22px; }
+  .cta-checks { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .cta-checks li {
+    display: flex; align-items: flex-start; gap: 11px;
+    font-size: 15px; color: var(--text-primary); font-weight: 500;
+  }
+  .cta-checks .ck {
+    width: 22px; height: 22px; min-width: 22px;
+    border-radius: 7px;
+    background: var(--green-soft);
+    color: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800;
+    margin-top: 1px;
+  }
+
+  .form-card {
+    background: var(--card-soft);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 30px;
+  }
+  .form-card h3 { font-weight: 800; font-size: 20px; letter-spacing: -0.01em; margin-bottom: 6px; color: var(--ink); }
+  .form-card .form-sub { font-size: 13.5px; color: var(--text-secondary); margin-bottom: 22px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .form-group { display: flex; flex-direction: column; gap: 7px; margin-bottom: 12px; }
+  .form-group label {
+    font-size: 11.5px; font-weight: 600; color: var(--text-muted);
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .form-group input {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 11px;
+    padding: 13px 15px;
+    font-size: 14.5px;
+    color: var(--text-primary);
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    width: 100%;
+  }
+  .form-group input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+  .form-group input.invalid { border-color: var(--red); box-shadow: 0 0 0 4px var(--red-soft); }
+  .form-group input::placeholder { color: var(--text-muted); }
+  .field-error { font-size: 12px; color: var(--red); font-weight: 600; min-height: 0; }
+
+  .btn-submit {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    background: var(--grad);
+    color: #fff;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+    border-radius: 13px;
+    padding: 17px 28px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 8px;
+    box-shadow: 0 14px 30px -10px var(--accent-glow);
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 20px 38px -10px var(--accent-glow); }
+  .form-fineprint { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 13px; line-height: 1.5; }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 30px 10px;
+  }
+  .form-success.show { display: block; }
+  .success-mark {
+    width: 56px; height: 56px;
+    border-radius: 16px;
+    background: var(--green-soft);
+    color: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; font-weight: 800;
+    margin: 0 auto 18px;
+  }
+  .form-success h3 { font-weight: 800; font-size: 22px; color: var(--ink); margin-bottom: 8px; }
+  .form-success p { font-size: 14.5px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 36px 0 48px;
+  }
+  .footer-inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .footer-inner a { color: var(--accent-deep); text-decoration: none; font-weight: 600; }
+  .footer-inner a:hover { text-decoration: underline; }
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px) {
+    .spectrum { grid-template-columns: 1fr 1fr; }
+    .motion-grid { grid-template-columns: 1fr 1fr; }
+    .cta-card { grid-template-columns: 1fr; gap: 32px; }
+  }
+  @media (max-width: 680px) {
+    section { padding: 60px 0; }
+    .stat-strip { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    .spectrum { grid-template-columns: 1fr; }
+    .motion-grid { grid-template-columns: 1fr; }
+    .weeks { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .product-top { flex-direction: column; align-items: flex-start; }
+    .nav-cta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="brand-mark"></span>DISTRIKT Worldwide</div>
+    <a href="#start" class="nav-cta">Claim Your Sprint &rarr;</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero wrap">
+  <div class="hero-eyebrow"><span class="eyebrow">AI-Native Revenue Infrastructure</span></div>
+  <h1>You bought the platform. <span class="hl">The workflows never changed.</span></h1>
+  <p class="hero-sub">If your team has an enterprise AI license and the way you work hasn't moved, you're paying for a platform you're not using. <b>We fix that in 30 days</b> — one live workflow, fixed fee, no retainer to start.</p>
+  <div class="hero-actions">
+    <a href="#start" class="btn-primary">Start the 30-Day Sprint &rarr;</a>
+    <a href="#how" class="btn-ghost">See how it works</a>
+  </div>
+  <div class="hero-note">Fixed fee &middot; Fixed timeline &middot; One live workflow on day 30</div>
+
+  <div class="stat-strip">
+    <div class="stat-item reveal">
+      <div class="stat-number">&lt;20%</div>
+      <div class="stat-label">of enterprise AI value most companies actually capture</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-number">30 days</div>
+      <div class="stat-label">from kickoff to one live, measured workflow</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-number">Day 1</div>
+      <div class="stat-label">your internal champion builds it with us, not handed a black box</div>
+    </div>
+  </div>
+</header>
+
+<!-- PROBLEM -->
+<section class="wrap">
+  <div class="problem-card reveal">
+    <span class="eyebrow">The Problem</span>
+    <h2>The technology isn't the problem. <span class="hl">Nobody mapped the workflows.</span></h2>
+    <p>Most companies using enterprise AI are capturing less than 20% of what they paid for. Not because the tools are weak — but because nobody cleared the data access, mapped the workflows, or designed the handoff between AI output and human judgment. The license is live. The work never changed.</p>
+  </div>
+</section>
+
+<!-- WHO WE SERVE -->
+<section class="wrap">
+  <div class="section-head reveal">
+    <span class="eyebrow">Who We Help</span>
+    <h2 class="section-title">Two ways teams get stuck — <span class="hl">and where we start</span></h2>
+    <p class="section-sub">Most companies fall into one of these. We diagnose which, then run the entry move that fits before anyone builds anything.</p>
+  </div>
+  <div class="two-col">
+    <div class="persona reveal">
+      <span class="persona-tag">Capable Team / Locked Data</span>
+      <h3>The team knows what to build. The data isn't reachable.</h3>
+      <p>IT gatekeeping, platform silos, permissions red tape. Smart people who could ship — blocked by where the data lives and who controls access to it.</p>
+      <div class="entry-move">
+        <div class="label">Entry Move</div>
+        <div class="move">Data Access Sprint</div>
+        <div class="desc">Audit what exists, who owns it, and what the access path is. We deliver a Data Readiness Map before any build begins.</div>
+      </div>
+    </div>
+    <div class="persona reveal">
+      <span class="persona-tag">Clean Data / Weak Execution</span>
+      <h3>The data is ready. No one knows which workflow to build first.</h3>
+      <p>Data is clean and accessible, but nobody has engineered the context for reliable output — or decided which process to redesign for the biggest return.</p>
+      <div class="entry-move">
+        <div class="label">Entry Move</div>
+        <div class="move">Workflow Extraction Session</div>
+        <div class="desc">We sit with your top performer, document what they do intuitively, and encode it as the default for everyone.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPLOYMENT SPECTRUM -->
+<section class="wrap" id="how">
+  <div class="section-head center reveal">
+    <span class="eyebrow">The Deployment Spectrum</span>
+    <h2 class="section-title">From assisted to autonomous</h2>
+    <p class="section-sub">Every client enters at stage one and grows from there. You never buy more than you're ready to run.</p>
+  </div>
+  <div class="spectrum">
+    <div class="stage start reveal">
+      <div class="stage-num">01 <span class="stage-badge">Start here</span></div>
+      <h4>AI Utilization Sprint</h4>
+      <p>Audit plus your first workflow live in 30 days. Fixed fee. The entry point for every new client.</p>
+    </div>
+    <div class="stage reveal">
+      <div class="stage-num">02</div>
+      <h4>Guided Workflows</h4>
+      <p>Multiple recurring processes redesigned around your enterprise AI platform. A human triggers and reviews the output.</p>
+    </div>
+    <div class="stage reveal">
+      <div class="stage-num">03</div>
+      <h4>Workflow Chains</h4>
+      <p>Multi-step automated sequences. The human reviews the final output only.</p>
+    </div>
+    <div class="stage reveal">
+      <div class="stage-num">04</div>
+      <h4>Agentic Deployment</h4>
+      <p>Autonomous systems that monitor, decide, act, and loop. Full revenue infrastructure.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THE PRODUCT -->
+<section class="wrap">
+  <div class="product reveal">
+    <div class="product-top">
+      <div>
+        <span class="eyebrow">The Tier 1 Offering</span>
+        <h2>The AI Utilization Sprint</h2>
+        <p>One live workflow on day 30. The roadmap we hand you at the end becomes the scope for everything that comes next — no black boxes, no open-ended retainer.</p>
+      </div>
+      <div class="product-pills">
+        <div class="pill"><span class="dot"></span>Fixed fee</div>
+        <div class="pill"><span class="dot"></span>Fixed timeline</div>
+        <div class="pill"><span class="dot"></span>Live workflow on day 30</div>
+      </div>
+    </div>
+    <div class="weeks">
+      <div class="week reveal">
+        <div class="week-num"><span class="n">1</span>Audit &amp; Map</div>
+        <h4>See where the value is hiding</h4>
+        <p>We inventory how your team uses the platform today, identify data blockers, and rank your top 5 workflow opportunities by hours saved and revenue touched.</p>
+      </div>
+      <div class="week reveal">
+        <div class="week-num"><span class="n">2</span>Build With You</div>
+        <h4>Not for you — with you</h4>
+        <p>We design the data connections, prompt architecture, and human-in-the-loop handoff together. The person who builds it with us becomes your internal champion.</p>
+      </div>
+      <div class="week reveal">
+        <div class="week-num"><span class="n">3</span>Run &amp; Measure</div>
+        <h4>Live, tracked, documented</h4>
+        <p>The workflow goes live, time saved is measured, and the SOP is handed off. You own it. No dependency, no mystery.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SALES MOTION -->
+<section class="wrap">
+  <div class="section-head center reveal">
+    <span class="eyebrow">What Working Together Looks Like</span>
+    <h2 class="section-title">A fast yes, then a clear path</h2>
+    <p class="section-sub">No drawn-out discovery. No retainer to start. You see the gap, we fix one workflow, and the roadmap tells you exactly what comes next.</p>
+  </div>
+  <div class="motion-grid">
+    <div class="motion-step reveal">
+      <div class="idx">01</div>
+      <h4>Diagnose the Gap</h4>
+      <p>We pinpoint where your platform is underused and which workflow is worth fixing first.</p>
+    </div>
+    <div class="motion-step reveal">
+      <div class="idx">02</div>
+      <h4>Run the Sprint</h4>
+      <p>Fixed fee, fixed timeline, one live workflow in 30 days. A fast yes with no retainer to start.</p>
+    </div>
+    <div class="motion-step reveal">
+      <div class="idx">03</div>
+      <h4>Roadmap Hand-off</h4>
+      <p>We hand you the next 5 workflows, scoped and prioritized by impact.</p>
+    </div>
+    <div class="motion-step reveal">
+      <div class="idx">04</div>
+      <h4>Scale From There</h4>
+      <p>The roadmap becomes the scope. We grow with you toward full revenue infrastructure.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DISCOVERY QUOTE -->
+<section class="wrap">
+  <div class="quote-card reveal">
+    <div class="mark">&ldquo;</div>
+    <blockquote>What was the last workflow your team actually changed since you bought your AI platform?</blockquote>
+    <cite>If the answer is silence, you're exactly who the Sprint is built for.</cite>
+  </div>
+</section>
+
+<!-- CTA / LEAD CAPTURE -->
+<section class="wrap cta-section" id="start">
+  <div class="cta-card reveal">
+    <div class="cta-left">
+      <span class="eyebrow">Get Started</span>
+      <h2>Stop paying for a platform you're not using.</h2>
+      <p>Tell us a little about your team and we'll show you exactly where your enterprise AI investment is leaking value — and the first workflow worth fixing.</p>
+      <ul class="cta-checks">
+        <li><span class="ck">&#10003;</span> One live workflow in 30 days, fixed fee</li>
+        <li><span class="ck">&#10003;</span> Your champion builds it with us, not a handoff</li>
+        <li><span class="ck">&#10003;</span> Walk away with a prioritized roadmap either way</li>
+      </ul>
+    </div>
+
+    <div class="form-card">
+      <form id="lead-form" novalidate>
+        <h3>Book your Sprint</h3>
+        <p class="form-sub">No retainer to start. We'll be in touch within one business day.</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="f-first">First Name</label>
+            <input type="text" id="f-first" name="first" placeholder="Kevin" autocomplete="given-name">
+          </div>
+          <div class="form-group">
+            <label for="f-last">Last Name</label>
+            <input type="text" id="f-last" name="last" placeholder="Teeven" autocomplete="family-name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="f-company">Company</label>
+          <input type="text" id="f-company" name="company" placeholder="Your company" autocomplete="organization">
+        </div>
+        <div class="form-group">
+          <label for="f-email">Work Email</label>
+          <input type="email" id="f-email" name="email" placeholder="you@yourcompany.com" autocomplete="email">
+          <div class="field-error" id="email-error"></div>
+        </div>
+
+        <button type="submit" class="btn-submit">Claim Your Sprint &rarr;</button>
+        <div class="form-fineprint">We'll only use this to follow up about your Sprint. No spam, no list.</div>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <div class="success-mark">&#10003;</div>
+        <h3>You're in.</h3>
+        <p>Thanks — we've got your details and we'll reach out within one business day to lock in your Sprint.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="brand"><span class="brand-mark"></span>DISTRIKT Worldwide</div>
+    <div>&copy; <span id="year"></span> DISTRIKT Worldwide LLC &middot; <a href="https://distriktww.com" target="_blank" rel="noopener">distriktww.com</a></div>
+  </div>
+</footer>
+
+<script>
+  // ============================================================
+  //  LEAD DELIVERY SETUP  ::  READ THIS
+  //  ------------------------------------------------------------
+  //  This page is self-contained, so the form sends leads to a
+  //  hosted endpoint. Easiest free option = Formspree:
+  //
+  //    1. Go to https://formspree.io and sign up (free).
+  //    2. Create a new form. It gives you a URL like:
+  //         https://formspree.io/f/abcdwxyz
+  //    3. Paste that URL between the quotes below, replacing
+  //       the placeholder.
+  //
+  //  That's it. Every submission arrives in your Formspree inbox
+  //  and email. No other code changes needed.
+  //
+  //  Leaving the placeholder as-is: the form still shows the
+  //  success message, but leads are NOT delivered anywhere.
+  // ============================================================
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/REPLACE_WITH_YOUR_ID";
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  const form = document.getElementById('lead-form');
+  const emailInput = document.getElementById('f-email');
+  const emailError = document.getElementById('email-error');
+
+  function isValidEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const first = document.getElementById('f-first').value.trim();
+    const last = document.getElementById('f-last').value.trim();
+    const company = document.getElementById('f-company').value.trim();
+    const email = emailInput.value.trim();
+
+    // Reset state
+    emailInput.classList.remove('invalid');
+    emailError.textContent = '';
+
+    if (!first || !last || !company || !email) {
+      alert('Please fill in all fields so we can follow up.');
+      return;
+    }
+    if (!isValidEmail(email)) {
+      emailInput.classList.add('invalid');
+      emailError.textContent = 'Please enter a valid work email.';
+      return;
+    }
+
+    sendLead({ first, last, company, email });
+
+    // Swap to success state
+    form.style.display = 'none';
+    document.getElementById('form-success').classList.add('show');
+  });
+
+  function sendLead(lead) {
+    if (FORMSPREE_ENDPOINT.includes('REPLACE_WITH_YOUR_ID')) {
+      console.warn('Lead not sent: FORMSPREE_ENDPOINT is still the placeholder.');
+      return;
+    }
+    const payload = {
+      _subject: `New Sprint lead: ${lead.company}`,
+      name: `${lead.first} ${lead.last}`,
+      company: lead.company,
+      email: lead.email
+    };
+    fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(err => console.warn('Lead delivery failed:', err));
+  }
+</script>
+
+</body>
+</html>
